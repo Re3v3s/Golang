@@ -39,6 +39,10 @@
               </tr>
             </tbody>
           </table>
+<!--           
+          <h2>{{.Name}}</h2> 
+          <h2> {{.Price}}</h2> -->
+
         </div>
       </div>
     </div>
@@ -58,29 +62,32 @@
       </div>    <!-- end modal-header -->
       <div class="modal-body">
         <div class="card-body">
-          <!-- Firstname -->
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1"> Firstname </span>
-            </div>
-            <input type="text" class="form-control" name="firstname" autocomplete="off" required>
-          </div>
-       
 
-           <!-- Lastname -->
-           <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1"> Lastname </span>
-            </div>
-            <input type="text" class="form-control" name="firstname" autocomplete="off" required>
-          </div>
-       
+          <form method="POST" action="/save">
+              <!-- Firstname -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1"> Firstname </span>
+                </div>
+                <input type="text" class="form-control" name="firstname" autocomplete="off" required>
+              </div>
+          
+              <!-- Lastname -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1"> Lastname </span>
+                </div>
+                <input type="text" class="form-control" name="lastname" autocomplete="off"  required>
+              </div>
+         
 
       </div> <!-- end body -->
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
       </div> <!-- End modal Footer -->
+      
+        </form>  <!-- End Form -->
     </div>
   </div>
 </div>  <!-- End Modal -->
