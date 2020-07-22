@@ -37,7 +37,7 @@
             <tbody>
             <form action="/update" method="POST">
                 <tr>
-                    <td> <input type="number" name="uid" value="{{ .Id}}" disabled></td>
+                    <td> <input type="number" name="uid" value="{{ .Id}}" readonly></td>
                     <td><input type="text" name="firstname" value="{{ .Fname}}"></td>
                     <td><input type="text" name="lastname" value="{{ .Lname}}"></td>
                     <td><input type="number" name="age" value="{{ .Age}}"></td>

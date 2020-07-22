@@ -20,6 +20,8 @@ type ResultData struct {
 	Lname string
 }
 
+// ! Careful about name's func you have to use Pascal case not camel case and not snake case neither
+
 func main() {
 
 	// route
@@ -38,15 +40,15 @@ func main() {
 
 }
 
-func dbConn() (db *sql.DB)  {
+func dbConn() (db *sql.DB) {
 	dbDriver := "mysql"
 	dbUser := "root"
 	dbPass := ""
 	dbName := "golang"
 	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
-		if err != nil {
-			panic(err.Error())
-		}
+	if err != nil {
+		panic(err.Error())
+	}
 	return db
 }
 
@@ -102,36 +104,36 @@ func delete(res http.ResponseWriter, req *http.Request) {
 	// for delelet
 	stmt, err := db.Prepare("delete from users where id=?")
 	stmt.Exec(req.URL.Query().Get("id"))
-		if err != nil {
-			panic(err)
-		}
+	if err != nil {
+		panic(err)
+	}
 	log.Println("Deleted successfully")
-	defer db.Close()	
+	defer db.Close()
 	http.Redirect(res, req, "/", 301)
 }
 
 func edit(res http.ResponseWriter, req *http.Request) {
-	 db := dbConn()
-	 uId := req.URL.Query().Get("id")
-	 slDB , err := db.Query("SELECT * from users WHERE id=?" , uId)
-	 	if err != nil {
-			 panic(err.Error())
-		 }
+	db := dbConn()
+	uId := req.URL.Query().Get("id")
+	slDB, err := db.Query("SELECT * from users WHERE id=?", uId)
+	if err != nil {
+		panic(err.Error())
+	}
 	user := ResultData{}
-	for slDB.Next(){
-		var id , age int
-		var fname , lname string
-		err = slDB.Scan(&id,&fname,&lname,&age)
-			if err != nil {
-				panic(err.Error())
-			}
+	for slDB.Next() {
+		var id, age int
+		var fname, lname string
+		err = slDB.Scan(&id, &fname, &lname, &age)
+		if err != nil {
+			panic(err.Error())
+		}
 		user.Id = id
 		user.Fname = fname
 		user.Lname = lname
 		user.Age = age
 	}
 	var templates = template.Must(template.ParseFiles("edit.html"))
-	templates.Execute(res,user)
+	templates.Execute(res, user)
 	defer db.Close()
 }
 
@@ -162,38 +164,39 @@ func save(w http.ResponseWriter, r *http.Request) {
 	// }
 	// http.Redirect(w, r, "/", 301)
 	db := dbConn()
-		if r.Method == "POST" {
-			Fname := r.FormValue("firstname")
-			Lname := r.FormValue("lastname")
-			Age := r.FormValue("age")
-			insForm , err := db.Prepare("Insert Into users (firstname,lastname,age) values(?,?,?)")
-				if err != nil {
-					panic(err.Error())
-				}
-			insForm.Exec(Fname,Lname,Age)
-			log.Println("Insert | Name : " +Fname + "| Lame : " +Lname+ "| age : " +Age)
-		}
-		defer db.Close()
-		http.Redirect(w,r,"/",301)
+	if r.Method == "POST" {
+		Fname := r.FormValue("firstname")
+		Lname := r.FormValue("lastname")
+		Age := r.FormValue("age")
+		insForm, err := db.Prepare("Insert Into users (firstname,lastname,age) values(?,?,?)")
+			if err != nil {
+				panic(err.Error())
+			}
+		insForm.Exec(Fname, Lname, Age)
+		log.Println("Insert | Name : " + Fname + "| Lame : " + Lname + "| age : " + Age)
+	}
+	defer db.Close()
+	http.Redirect(w, r, "/", 301)
 }
 
-func update(res http.ResponseWriter , req *http.Request)  {
-		db := dbConn()
-			if req.Method == "POST"{
-				Id := req.FormValue("uid")
-				Fname := req.FormValue("firstname")
-				Lname := req.FormValue("lastname")
-				Age := req.FormValue("age")
-			uPD , err := db.Prepare("Update users SET firstname=? , lastname=? , age=? WHERE id=?")
+func update(res http.ResponseWriter, req *http.Request) {
+	db := dbConn()
+		if req.Method == "POST" {
+			ID := req.FormValue("uid")
+			Fname := req.FormValue("firstname")
+			Lname := req.FormValue("lastname")
+			Age := req.FormValue("age")
+			uPDB, err := db.Prepare("UPDATE USERS SET firstname=? , lastname=? , age=? WHERE id=?")
 				if err != nil {
 					panic(err.Error())
 				}
-			uPD.Exec(Fname,Lname,Age,Id)
-			log.Println("Update : Name : " + Fname + "| Lastname : " + Lname + "| age : " +Age)
-			}
-		defer db.Close()
-		http.Redirect(res,req,"/",301)
+			uPDB.Exec(Fname, Lname, Age, ID)
+			log.Println("Update | Name : " + Fname + "| Lastname : " + Lname + "| age : " + Age )
+		}
+	defer db.Close()
+	http.Redirect(res, req, "/", 301)
 }
+
 func home(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, " this is Home page my friend hey")
 }
