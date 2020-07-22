@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+
+    <title>Hello, GOLANG!</title>
+  </head>
+  <style>
+      input {
+          text-align: center;
+      }
+  </style>
+
+  <body>
+    <div class="container">
+      <div class="card mt-5">
+        <div class="card-header bg-dark text-white">
+          <h1 class="text-center">Hello, GOLANG!</h1>
+        </div>
+        <div class="card-body">
+          <table class="table table-hover table-bordered text-center mt-3">
+            <thead>
+              <tr>
+                 <th>ID</th>
+                 <th>Firstname</th>
+                 <th>Lastname</th>
+                 <th>age</th>
+
+              </tr>
+            </thead>
+            <!-- Character is important , you have to use PasCal Case -->
+            <tbody>
+            <form action="/update" method="POST">
+                <tr>
+                    <td> <input type="number" name="uid" value="{{ .Id}}" disabled></td>
+                    <td><input type="text" name="firstname" value="{{ .Fname}}"></td>
+                    <td><input type="text" name="lastname" value="{{ .Lname}}"></td>
+                    <td><input type="number" name="age" value="{{ .Age}}"></td>
+                </tr>
+         
+            </tbody>
+          </table>
+          
+                <button type="submit" class="btn btn-success float-right">ตกลง</button>
+            </form>
+        </div>
+      </div>
+    </div>
+    <!-- end container -->
+
+    
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  </body>
+</html>
